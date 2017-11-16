@@ -10,12 +10,13 @@ package Modelo;
  * @author user
  */
 public class Software {
-    String nombre, tipo;
+    String codigo, nombre, tipo;
     
     public Software() {
     }
     
-    public Software(String nombre, String tipo) {
+    public Software(String codigo, String nombre, String tipo) {
+        this.codigo=codigo;
         this.nombre = nombre;
         this.tipo = tipo;
     }
@@ -36,5 +37,14 @@ public class Software {
         this.tipo = tipo;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    
     
 }

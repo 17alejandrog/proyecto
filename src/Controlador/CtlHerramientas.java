@@ -63,20 +63,19 @@ public class CtlHerramientas {
         return null;
     }
 
-    public DefaultTableModel consultarModelo(String codigo) {
+    public DefaultTableModel consultarModelo() {
         int encontrado = 0;
       
         DefaultTableModel modelo = new DefaultTableModel();
         String nombreColumnas[] = {"Nombre", "Código", "Cantidad"};
         modelo = new DefaultTableModel(new Object[][]{}, nombreColumnas);
         for (int i = 0; i < listaHerramienta.size(); i++) {
-            if (listaHerramienta.get(i).getCodigo().equals(codigo)) {
+          
                 modelo.addRow(new Object[]{
                     listaHerramienta.get(i).getNombre(),
                     listaHerramienta.get(i).getCodigo(),
                     listaHerramienta.get(i).getCantidad()});
-                break;
-            }
+              
         }
         if (encontrado == 0) {
         }

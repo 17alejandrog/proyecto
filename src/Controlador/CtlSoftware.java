@@ -15,17 +15,18 @@ import Modelo.Software;
  * @author user
  */
 public class CtlSoftware {
+
     static ArrayList<Software> listaSof = new ArrayList<Software>();
 
-    public boolean registrarSoftware(String nombre, String tipo) {
+    public boolean registrarSoftware(String codigo, String nombre, String tipo) {
         int band = 0;
-       Software software = new Software(nombre, tipo);
+        Software software = new Software(codigo, nombre, tipo);
         if (listaSof.isEmpty()) {
             listaSof.add(software);
             return true;
         } else {
             for (int i = 0; i < listaSof.size(); i++) {
-                if ((software.getTipo()).equals(listaSof.get(i).getTipo())){
+                if ((software.getTipo()).equals(listaSof.get(i).getTipo())) {
                     band = 1;
                 }
 
@@ -39,7 +40,8 @@ public class CtlSoftware {
         }
         return false;
     }
-     public DefaultTableModel listar() {
+
+    public DefaultTableModel listar() {
         DefaultTableModel modelo = new DefaultTableModel();
         String nombreColumnas[] = {"Nombre", "Tipo"};
         modelo = new DefaultTableModel(new Object[][]{}, nombreColumnas);
@@ -50,53 +52,55 @@ public class CtlSoftware {
         }
         return modelo;
     }
-     public Software consultarSoftware(String tipo) {
+
+    public Software consultarSoftware(String codigo) {
         for (int i = 0; i < listaSof.size(); i++) {
-            if (listaSof.get(i).getTipo().trim().equals(tipo)) {
+            if (listaSof.get(i).getCodigo().trim().equals(codigo)) {
                 return listaSof.get(i);
             }
         }
         return null;
     }
 
-    public DefaultTableModel consultarSoftwareModelo(String tipo) {
-        int encontrado = 0;
+    public DefaultTableModel consultarSoftwareModelo() {
+       
         Software software;
         DefaultTableModel modelo = new DefaultTableModel();
-        String nombreColumnas[] = {"Nombre", "Tipo"};
+        String nombreColumnas[] = {"Codigo","Nombre", "Tipo"};
         modelo = new DefaultTableModel(new Object[][]{}, nombreColumnas);
         for (int i = 0; i < listaSof.size(); i++) {
-            if (listaSof.get(i).getTipo().equals(tipo)) {
+           
                 modelo.addRow(new Object[]{
+                    listaSof.get(i).getCodigo(),
                     listaSof.get(i).getNombre(),
                     listaSof.get(i).getTipo()});
-                break;
-            }
+                
+            
         }
-        if (encontrado == 0) {
-        }
+        
         return modelo;
     }
 
-    public boolean modificarSoftware(String tipo, Software software) {
-        for (int i = 0; i < listaSof.size(); i++) {
-            if (listaSof.get(i).getTipo().equals(software.getTipo())) {
-                listaSof.remove(i);
-                listaSof.add(software);
-                return true;
-            }
+    public boolean modificarSoftware(String codigo, Software software) {
+        if (consultarSoftware(codigo) != null) {
+            Software viejo = consultarSoftware(codigo);
+            viejo.setNombre(software.getNombre());
+            viejo.setTipo(software.getTipo());
+            return true;
+        } else {
+            return false;
         }
-        return false;
+
     }
 
-    public boolean eliminarSoftware(String tipo) {
-        for (int i = 0; i < listaSof.size(); i++) {
-            if (listaSof.get(i).getTipo().equals(tipo)) {
-                listaSof.remove(i);
-                return true;
-            }
+    public boolean eliminarSoftware(String codigo) {
+        if (consultarSoftware(codigo) != null) {
+            listaSof.remove(consultarSoftware(codigo));
+            return true;
+        } else {
+            return false;
         }
-        return false;
+
     }
 
 }

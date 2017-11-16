@@ -63,20 +63,19 @@ public class CtlInsumo {
         return null;
     }
 
-    public DefaultTableModel consultarListar(String codigo) {
+    public DefaultTableModel consultarListar (){
         int encontrado = 0;
 
         DefaultTableModel modelo = new DefaultTableModel();
-        String nombreColumnas[] = {"Codigo", "Nombre", "Direccion"};
+        String nombreColumnas[] = {"Codigo", "Nombre", "Descripcion"};
         modelo = new DefaultTableModel(new Object[][]{}, nombreColumnas);
         for (int i = 0; i < listaInsumo.size(); i++) {
-            if (listaInsumo.get(i).getCodigo().equals(codigo)) {
+           
                 modelo.addRow(new Object[]{
                     listaInsumo.get(i).getCodigo(),
                     listaInsumo.get(i).getNombre(),
                     listaInsumo.get(i).getDescripcion()});
-                break;
-            }
+               
         }
         if (encontrado == 0) {
         }
@@ -97,7 +96,7 @@ public class CtlInsumo {
     public boolean eliminarInsumo(String codigo) {
         for (int i = 0; i < listaInsumo.size(); i++) {
             if (listaInsumo.get(i).getCodigo().equals(codigo)) {
-                listaInsumo.remove(i);
+                listaInsumo.remove(listaInsumo.get(i));
                 return true;
             }
         }
